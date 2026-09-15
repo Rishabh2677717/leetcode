@@ -1,0 +1,32 @@
+class Solution {
+    public static int findMax(int [][]mat, int n , int m ,int cols){
+        int maxIndex=-1;
+        int maxValue=-1;
+        for(int i =0;i<n;i++){
+            if(mat[i][cols]>maxValue){
+                maxValue= mat[i][cols];
+                 maxIndex = i;
+            }
+        }
+        return maxIndex;
+    }
+    public int[] findPeakGrid(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int low = 0;
+        int high = m-1;
+        while(low<=high){
+            int mid = low+(high-low)/2;
+            int row = findMax(mat, n , m,mid);
+            int left = mid-1>=0?mat[row][mid-1]:-1;
+            int right = mid+1<m?mat[row][mid+1]:-1;
+            if(mat[row][mid]>left&&mat[row][mid]>right){
+                return new int[]{row,mid};
+            }
+            else if(left>mat[row][mid]) high = mid-1;
+            else low = mid+1;
+        }
+return new int[]{-1,-1};
+
+    }
+}
